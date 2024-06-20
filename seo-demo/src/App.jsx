@@ -1,56 +1,42 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [url, setUrl] = useState("");
-  const [report, setReport] = useState(null);
+  const [urls, setUrls] = useState([]);
   const [error, setError] = useState(null);
 
-  const generateReport = async () => {
-    if (!url) {
-      alert("Please enter a URL");
-      return;
-    }
+  useEffect(() => {
+    const fetchUrls = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/fetch-urls");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setUrls(data);
+        setError(null);
+      } catch (err) {
+        setError(err.message || "An error occurred");
+        setUrls([]);
+      }
+    };
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/generate-report",
-        { url }
-      );
-      setReport(response.data);
-      setError(null);
-    } catch (err) {
-      setError(err.response ? err.response.data.error : "An error occurred");
-      setReport(null);
-    }
-  };
+    fetchUrls();
+  }, []);
 
   return (
     <div className="App">
-      <h1>SEO Report Generator</h1>
-      <input
-        type="text"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="Enter website URL"
-      />
-      <button onClick={generateReport}>Generate Report</button>
+      <h1>Fetched URLs</h1>
       {error && <div className="error">{error}</div>}
-      {report && (
-        <div className="report">
-          <h2>SEO Report</h2>
-          <p>Performance Score: {report.categories.performance.score * 100}</p>
-          <p>
-            Accessibility Score: {report.categories.accessibility.score * 100}
-          </p>
-          <p>
-            Best Practices Score:{" "}
-            {report.categories["best-practices"].score * 100}
-          </p>
-          <p>SEO Score: {report.categories.seo.score * 100}</p>
-        </div>
-      )}
+      <div className="url-list">
+        {urls.map((item, index) => (
+          <div key={index} className="url-item">
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              {item.text || item.url}
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
