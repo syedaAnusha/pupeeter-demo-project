@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import axios from "axios";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [url, setUrl] = useState("");
+  const [report, setReport] = useState(null);
+  const [error, setError] = useState(null);
+
+  const generateReport = async () => {
+    if (!url) {
+      alert("Please enter a URL");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/generate-report",
+        { url }
+      );
+      setReport(response.data);
+      setError(null);
+    } catch (err) {
+      setError(err.response ? err.response.data.error : "An error occurred");
+      setReport(null);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <h1>SEO Report Generator</h1>
+      <input
+        type="text"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        placeholder="Enter website URL"
+      />
+      <button onClick={generateReport}>Generate Report</button>
+      {error && <div className="error">{error}</div>}
+      {report && (
+        <div className="report">
+          <h2>SEO Report</h2>
+          <p>Performance Score: {report.categories.performance.score * 100}</p>
+          <p>
+            Accessibility Score: {report.categories.accessibility.score * 100}
+          </p>
+          <p>
+            Best Practices Score:{" "}
+            {report.categories["best-practices"].score * 100}
+          </p>
+          <p>SEO Score: {report.categories.seo.score * 100}</p>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
