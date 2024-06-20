@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "lighthouse": "^12.1.0",
+    "node-fetch": "^2.6.1",
     "puppeteer": "^22.11.2"
   }
 }
