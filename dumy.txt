@@ -41,10 +41,8 @@
 // });
 
 -------
-// https://www.websitecarbon.com/
-// https://ecograder.com/
-// https://news.ycombinator.com/
-// https://insigh.to/
+
+
 
 // puppeteer-extra is a drop-in replacement for puppeteer,
 // it augments the installed puppeteer with plugin functionality
@@ -127,3 +125,11 @@ const puppeteer = require("puppeteer");
 
 npm install puppeteer-extra-plugin-stealth puppeteer-extra
 npm install node-fetch https-proxy-agent
+
+
+// https://www.websitecarbon.com/
+// https://ecograder.com/
+// https://news.ycombinator.com/
+// https://insigh.to/
+// const URL = "https://www.vocabulary.com/lists/52473";
+// https://www.ef.com/wwen/english-resources/english-vocabulary/top-3000-words/
