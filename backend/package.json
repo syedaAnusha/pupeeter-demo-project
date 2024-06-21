@@ -11,8 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
+    "hcaptcha": "^0.1.1",
     "lighthouse": "^12.1.0",
     "node-fetch": "^2.6.1",
-    "puppeteer": "^22.11.2"
+    "puppeteer": "^22.12.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-capsolver": "^1.1.2"
   }
 }
