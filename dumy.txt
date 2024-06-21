@@ -123,3 +123,7 @@ const puppeteer = require("puppeteer");
   // console.log('The title of this blog post is "%s".', fullTitle);
   await browser.close();
 })();
+
+
+npm install puppeteer-extra-plugin-stealth puppeteer-extra
+npm install node-fetch https-proxy-agent

@@ -2,15 +2,19 @@ const puppeteer = require("puppeteer");
 // Launch the browser and open a new blank page
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  // Navigate the page to a URL.
-  await page.goto("https://www.vocabulary.com/lists/52473");
-
   // Set screen size.
-  await page.setViewport({ width: 1280, height: 1624 });
+  await page.setViewport({ width: 1920, height: 1080 });
 
-  await page.screenshot({ path: "example.png", fullPage: true });
+  const URL =
+    "https://www.ef.com/wwen/english-resources/english-vocabulary/top-3000-words/";
+  // Navigate the page to a URL.
+
+  await page.goto(URL);
+  await page.waitForNetworkIdle();
+  await page.screenshot({ path: "screenshot.png", fullPage: true });
+
   await browser.close();
 })();

@@ -12,10 +12,12 @@
   "dependencies": {
     "express": "^4.19.2",
     "hcaptcha": "^0.1.1",
+    "https-proxy-agent": "^7.0.4",
     "lighthouse": "^12.1.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.7.0",
     "puppeteer": "^22.12.0",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-capsolver": "^1.1.2"
+    "puppeteer-extra-plugin-capsolver": "^1.1.2",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }
